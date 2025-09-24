@@ -26,10 +26,11 @@ Para compilar o código TypeScript rode:
 ---
 
 ## Executando o Docker
-O projeto já possui um **docket-compose.yml** que ja está configurado para buir o n8n e o PostgreSQL
+O projeto já possui um **docket-compose.yml** que ja está configurado para subir o **n8n** e o **PostgreSQL**
 
 Para subir os containers:
 ```bash
+    cd ../../        # volta para a pasta ConectorOnfly
     docker compose up -d
 ```
 
@@ -85,14 +86,17 @@ As variáveis de ambientes estão definidas no arquivo .env
 ---
 
 ## Executando os testes
-1-Devemos validar a compilação do TypeScript:
+1-É necessário validar a compilação do TypeScript:
 ```bash
     npm run build
 ```
 
 2-Para rodar o nó Random dentro do n8n via interface
+
     - Adicione o nó Random;
+
     - Configure os valores mínimos e máximos;
+
     - Clique em Test Step para validar a resposta;
     
 ---
