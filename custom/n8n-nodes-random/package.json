@@ -1,0 +1,25 @@
+{
+  "name": "n8n-nodes-random",
+  "version": "1.0.0",
+  "description": "Random node (True Random Number Generator) for n8n",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc && powershell -NoProfile -Command \"New-Item -ItemType Directory -Force -Path dist/nodes | Out-Null; Copy-Item -Path src/nodes/random.svg -Destination dist/nodes/random.svg -Force\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf dist"
+    
+  },
+  "keywords": ["n8n", "node", "random"],
+  "author": "Seu Nome",
+  "license": "MIT",
+  "dependencies": {
+    "n8n-core": "^1.0.0",
+    "n8n-workflow": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "rimraf": "^6.0.0"
+  }
+}

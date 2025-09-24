@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",         // Versão de JS gerada (ES2019)
+    "module": "commonjs",       // Sistema de módulos (compatível com Node.js)
+    "outDir": "dist",           // Saída da compilação (vai gerar JS em /dist)
+    "rootDir": "src",           // Diretório raiz do código TS
+    "declaration": true,        // Gera arquivos .d.ts (tipos) junto com o JS
+    "strict": true,             // Ativa verificações estritas do TypeScript
+    "esModuleInterop": true,    // Permite importar módulos CommonJS com "import"
+    "resolveJsonModule": true,  // Permite importar arquivos .json
+    "skipLibCheck": true        // Ignora checagem de tipos em libs externas
+  },
+  "include": ["src/**/*"]       // Inclui todos os arquivos TS dentro de src/
+}

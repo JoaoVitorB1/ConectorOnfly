@@ -1,0 +1,61 @@
+
+volumes:
+  db_storage:
+  n8n_storage:
+
+services:
+  postgres:   # Serviço de banco de dados
+    image: postgres:16   # Imagem oficial do Postgres
+    restart: always   # Reinicia se o container cair
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}   # Usuário do banco
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}   # Senha do banco
+      - POSTGRES_DB=${POSTGRES_DB}   # Nome do banco
+    volumes:
+      - db_storage:/var/lib/postgresql/data   # Volume persistente
+    healthcheck:    # Verifica se o Postgres está pronto
+      # usa 127.0.0.1 para o pg_isready dentro do próprio container
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U ${POSTGRES_USER} -d ${POSTGRES_DB} || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  n8n:   # Serviço principal
+    image: docker.n8n.io/n8nio/n8n:1.85.4
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # banco
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=${POSTGRES_DB}
+      - DB_POSTGRESDB_USER=${POSTGRES_USER}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
+      - DB_POSTGRESDB_SCHEMA=public
+
+      # servidor web
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_FRONTEND_ENABLED=true  # garante que a UI esteja ativa
+
+      # diversos
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_RUNNERS_ENABLED=true
+      - GENERIC_TIMEZONE=${TZ}
+      - TZ=${TZ}
+
+      # onde o n8n procura seus conectores
+      - N8N_CUSTOM_EXTENSIONS=/home/node/.n8n/custom
+
+    ports:
+      - "5678:5678"     # Mapeia a porta local para acessar o editor do n8n
+
+    volumes:
+      # estado/config do n8n
+      - n8n_storage:/home/node/.n8n   # Configurações do n8n
+      # sua pasta de conectores locais
+      - ./custom:/home/node/.n8n/custom   # Nodes customizados
