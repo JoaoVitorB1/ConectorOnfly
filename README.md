@@ -3,16 +3,6 @@ Este projeto é um nó customizado para o n8n, criado para o processo seletivo R
 
 ---
 
-## Dependências
-O projeto usa as seguintes bibliotecas:
-
-- [n8n-core](https://www.npmjs.com/package/n8n-core)  
-- [n8n-workflow](https://www.npmjs.com/package/n8n-workflow)  
-- [TypeScript](https://www.typescriptlang.org/)  
-- [@types/node](https://www.npmjs.com/package/@types/node)
-
----
-
 ## Instalação
 Clone o repositório e entre na pasta do projeto:
 ```bash
@@ -63,8 +53,8 @@ http://localhost:5678
 
 ---
 ## Estrutura do Projeto
-
-n8n-random/
+```bash
+ConectorOnfly/
  └─ custom/
     └─ n8n-nodes-random/
         ├─ dist/                # Arquivos compilados (gerados pelo build)
@@ -79,6 +69,7 @@ n8n-random/
  ├─ .env
  ├─ docker-compose.yml
  └─ README.md
+```
 
 ---
 
