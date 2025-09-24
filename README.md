@@ -92,7 +92,6 @@ As variáveis de ambientes estão definidas no arquivo .env
 ```
 
 2-Para rodar o nó Random dentro do n8n via interface
-markdown
 - Adicione o nó Random;
 - Configure os valores mínimos e máximos;
 - Clique em Test Step para validar a resposta;
